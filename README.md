@@ -1,44 +1,33 @@
 # cloudflare-worker-github-oauth-login
 
-> Use a Cloudflare worker for GitHub's OAuth login flow
+> A Cloudflare Worker + GitHub Pages Login Example
 
-Example [Cloudflare Worker](https://workers.cloudflare.com/) that can be used for "Login with GitHub" functionality (OAuth login), e.g. for static web applications.
+The [github-oauth-login.js](github-oauth-login.js) file is a [Cloudflare Worker](https://workers.cloudflare.com/) which is continuously deployed using GitHub Actions (see [.github/workflows/deploy.yml]).
 
-See [github-oauth-login.js](github-oauth-login.js) for the source code.
+The worker does 3 things
 
-The worker is continously deployed using GitHub Actions. When you fork this repository to deploy your own worker, make sure to configure the environment variables accordinly. You find `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_ZONE_ID` on [httpsdash.cloudflare.com](https://dash.cloudflare.com/), select your account, then select your website, the IDs are listed in the sidebar's API section.
+1. When you open the worker URL, it will redirect to the OAuth App's login URL on github.com ([example](https://github-oauth-login.gr2m.workers.dev)).
+2. It accepts a `POST` request with the OAuth `code` retrieved from the OAuth callback redirect and returns an OAuth access token in return
+3. It enables CORS.
 
-## Usage
+The [index.html](index.html) file is a demo of a "Login with GitHub", you cann see the demo at [gr2m.github.io/cloudflare-worker-github-oauth-login/index.html](https://gr2m.github.io/cloudflare-worker-github-oauth-login/index.html). Look at its source code. If something is unclear, please feel free to [open an issue](https://github.com/gr2m/cloudflare-worker-github-oauth-login/issues) or [ping me on twitter](https://twitter.com/gr2m).
 
-To login, simply link to your worker's URL, it will redirect the user to the OAuth login page on GitHub. Configure the `Authorization callback URL` to your frontend application's URL. After the redirect, your application has to read out the `?code=...` query parameter and send a `POST` request with `{ code }` body. Example
+## Step-by-step instructions to create your own
 
-```js
-const WORKER_URL = "https://my-worker.my-username.workers.dev";
-const code = new URL(location.href).searchParams.get("code");
-const response = await fetch(WORKER_URL, {
-  method: "POST",
-  mode: "cors",
-  headers: {
-    "content-type": "application/json"
-  },
-  body: JSON.stringify({ code })
-});
-const result = await response.json();
+Note that you require access to the new GitHub Actions for the automated deployment to work.
 
-if (result.error) {
-  throw new Error(result.error);
-}
+1. [Create a GitHub App](https://developer.github.com/apps/building-github-apps/creating-a-github-app/) or [GitHub OAuth App](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
+1. Fork this repository
+1. [Create a Cloudflare account](https://dash.cloudflare.com/) (it's free!) if you don't have one yet.
+1. Add the following secrets in your fork's repository settings:
+   - `CLIENT_ID`, `CLIENT_SECRET`: In your GitHub (OAuth) App's settings page, find `Client ID` and `Client SECRET`
+   - `CLOUDFLARE_AUTH_EMAIL`: Find your account's email on your profile page
+   - `CLOUDFLARE_AUTH_KEY`: On your profile page, open the `API Tokens` tab, find `Global API Key`.
+   - `CLOUDFLARE_ACCOUNT_ID`: Open [dash.cloudflare.com](https://dash.cloudflare.com), select your account, then select your website. Find `Zone ID` and `Account ID`
+1. Enable GitHub Pages in your repository settings, select `Source` to be the `master branch`.
+1. In [index.html](index.html), change `WORKER_URL` replace `gr2m` with your own Cloudflare workers subdomain.
 
-const { token } = result;
-// token can now be used to send authenticated requests against https://api.github.com
-const getUserResponse = fetch("https://api.github.com/user", {
-  headers: {
-    accept: "application/vnd.github.v3+json",
-    authorization: `token ${token}`
-  }
-});
-const user = getUserResponse.json();
-```
+That should be it. The `github-oauth-login.js` file is now continously deployed to Cloudflare each time there is a commit to master.
 
 ## License
 
