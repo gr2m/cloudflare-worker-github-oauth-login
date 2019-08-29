@@ -47,31 +47,36 @@
 
         document.body.dataset.state = "loading";
 
-        const response = await fetch(WORKER_URL, {
-          method: "POST",
-          mode: "cors",
-          headers: {
-            "content-type": "application/json"
-          },
-          body: JSON.stringify({ code })
-        });
+        try {
+          const response = await fetch(WORKER_URL, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "content-type": "application/json"
+            },
+            body: JSON.stringify({ code })
+          });
 
-        const result = await response.json();
+          const result = await response.json();
 
-        if (result.error) {
-          return alert(JSON.stringify(result, null, 2));
-        }
-
-        // token can now be used to send authenticated requests against https://api.github.com
-        const getUserResponse = fetch("https://api.github.com/user", {
-          headers: {
-            accept: "application/vnd.github.v3+json",
-            authorization: `token ${result.token}`
+          if (result.error) {
+            return alert(JSON.stringify(result, null, 2));
           }
-        });
-        const { login } = getUserResponse.json();
-        $login.textContent = login;
-        document.body.dataset.state = "signed-in";
+
+          // token can now be used to send authenticated requests against https://api.github.com
+          const getUserResponse = fetch("https://api.github.com/user", {
+            headers: {
+              accept: "application/vnd.github.v3+json",
+              authorization: `token ${result.token}`
+            }
+          });
+          const { login } = getUserResponse.json();
+          $login.textContent = login;
+          document.body.dataset.state = "signed-in";
+        } catch (error) {
+          alert(error);
+          location.reload();
+        }
       }
     </script>
   </body>
