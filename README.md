@@ -29,6 +29,10 @@ Note that you require access to the new GitHub Actions for the automated deploym
 
 That should be it. The `github-oauth-login.js` file is now continously deployed to Cloudflare each time there is a commit to master.
 
+## Credits
+
+The OAuth App Avatar and this repository's social preview are using [@cameronmcefee](https://github.com/cameronmcefee)'s [cloud](https://octodex.github.com/cloud/) Octodex graphic :octocat:💖
+
 ## License
 
 [ISC](LICENSE)
