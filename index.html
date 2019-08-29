@@ -70,7 +70,7 @@
               authorization: `token ${result.token}`
             }
           });
-          const { login } = getUserResponse.json();
+          const { login } = await getUserResponse.json();
           $login.textContent = login;
           document.body.dataset.state = "signed-in";
         } catch (error) {
