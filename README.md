@@ -1,4 +1,4 @@
-# cloudflare-worker-oauth-keeper
+# cloudflare-worker-github-oauth-login
 > Use a Cloudflare worker for GitHub's OAuth login flow
 
 Just replace the `<Your Apps Client ID/Secret>` placeholder below and use it to create a [Cloudflare worker](https://workers.cloudflare.com/). You get 100,000 requests per day with the free plan which is plenty, even for apps with thousands of active users.
