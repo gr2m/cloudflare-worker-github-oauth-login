@@ -4,8 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Cloudflare worker GitHub OAuth Login Example</title>
+    <title>
+      Login with GitHub – A Cloudflare Worker + GitHub Pages Login Example
+    </title>
     <style>
+      * {
+        font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+        text-align: center;
+      }
+      h1 small {
+        display: block;
+        font-size: 1rem;
+      }
+      h2 {
+        margin-top: 10rem;
+      }
       p {
         display: none;
       }
@@ -17,7 +30,10 @@
     </style>
   </head>
   <body data-state="signed-out">
-    <h1>Cloudflare worker GitHub OAuth Login Example</h1>
+    <h1>
+      Login with GitHub
+      <small>A Cloudflare Worker + GitHub Pages Login Example</small>
+    </h1>
     <p id="signed-out">
       <a href="https://github-oauth-login.gr2m.workers.dev"
         >Login with GitHub</a
@@ -29,6 +45,7 @@
     <p id="loading">
       Loading...
     </p>
+
     <script>
       const WORKER_URL = "https://github-oauth-login.gr2m.workers.dev";
       const code = new URL(location.href).searchParams.get("code");
@@ -78,6 +95,31 @@
           location.reload();
         }
       }
+    </script>
+
+    <!-- highlight source code of this page using prism -->
+    <h2>Source code of this page</h2>
+    <pre><code class="language-html" id="sourcecode"></code></pre>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism.min.css"
+      integrity="sha256-77qGXu2p8NpfcBpTjw4jsMeQnz0vyh74f5do0cWjQ/Q="
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/components/prism-core.min.js"
+      integrity="sha256-Y+Budm2wBEjYjbH0qcJRmLuRBFpXd0VKxl6XhdS4hgA="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/plugins/autoloader/prism-autoloader.min.js"
+      integrity="sha256-ht8ay6ZTPZfuixYB99I5oRpCLsCq7Do2LjEYLwbe+X8="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      document.querySelector("#sourcecode").textContent =
+        document.body.parentElement.outerHTML;
     </script>
   </body>
 </html>
