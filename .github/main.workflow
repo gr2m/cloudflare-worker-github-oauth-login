@@ -1,9 +1,9 @@
-workflow "Deploy Worker" {
+workflow "Deploy Cloudflare Worker" {
   on = "push"
-  resolves = ["Deploy Worker"]
+  resolves = ["deploy"]
 }
 
-action "Deploy Worker" {
+action "deploy" {
   uses = "cloudflare/serverless-action@master"
   env = {
     CLOUDFLARE_SCRIPT_NAME = "github-oauth-login"
