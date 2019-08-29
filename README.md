@@ -25,7 +25,7 @@ Note that you require access to the new GitHub Actions for the automated deploym
    - `CLOUDFLARE_AUTH_KEY`: On your profile page, open the `API Tokens` tab, find `Global API Key`.
    - `CLOUDFLARE_ACCOUNT_ID`: Open [dash.cloudflare.com](https://dash.cloudflare.com), select your account, then select your website. Find `Zone ID` and `Account ID`
 1. Enable GitHub Pages in your repository settings, select `Source` to be the `master branch`.
-1. In [index.html](index.html), change `WORKER_URL` replace `gr2m` with your own Cloudflare workers subdomain.
+1. In [index.html](index.html), replace the `gr2m` workers subdomain with your own, in `WORKERS_URL` and the login `<a href="...">` tag.
 
 That should be it. The `github-oauth-login.js` file is now continously deployed to Cloudflare each time there is a commit to master.
 
