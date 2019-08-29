@@ -2,7 +2,7 @@
 
 > A Cloudflare Worker + GitHub Pages Login Example
 
-The [github-oauth-login.js](github-oauth-login.js) file is a [Cloudflare Worker](https://workers.cloudflare.com/) which is continuously deployed using GitHub Actions (see [.github/workflows/deploy.yml]([.github/workflows/deploy.yml])).
+The [github-oauth-login.js](github-oauth-login.js) file is a [Cloudflare Worker](https://workers.cloudflare.com/) which is continuously deployed using GitHub Actions (see [.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
 
 The worker does 3 things
 
