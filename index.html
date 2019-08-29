@@ -64,7 +64,7 @@
           }
 
           // token can now be used to send authenticated requests against https://api.github.com
-          const getUserResponse = fetch("https://api.github.com/user", {
+          const getUserResponse = await fetch("https://api.github.com/user", {
             headers: {
               accept: "application/vnd.github.v3+json",
               authorization: `token ${result.token}`
