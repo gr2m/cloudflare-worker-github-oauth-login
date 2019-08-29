@@ -4,7 +4,7 @@
 
 Example [Cloudflare Worker](https://workers.cloudflare.com/) that can be used for "Login with GitHub" functionality (OAuth login), e.g. for static web applications.
 
-See [worker.js](worker.js) for the source code.
+See [github-oauth-login.js](github-oauth-login.js) for the source code.
 
 The worker is continously deployed using GitHub Actions. When you fork this repository to deploy your own worker, make sure to configure the environment variables accordinly. You find `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_ZONE_ID` on [httpsdash.cloudflare.com](https://dash.cloudflare.com/), select your account, then select your website, the IDs are listed in the sidebar's API section.
 
