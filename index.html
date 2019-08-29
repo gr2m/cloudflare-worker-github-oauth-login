@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Cloudflare worker GitHub OAuth Login Example</title>
+    <style>
+      p {
+        display: none;
+      }
+      [data-state="signed-out"] #signed-out,
+      [data-state="signed-in"] #signed-in,
+      [data-state="loading"] #loading {
+        display: blck;
+      }
+    </style>
+  </head>
+  <body data-state="signed-out">
+    <h1>Cloudflare worker GitHub OAuth Login Example</h1>
+    <p id="signed-out">
+      <a href="https://github-oauth-login.gr2m.workers.dev"
+        >Login with GitHub</a
+      >
+    </p>
+    <p id="signed-in">
+      Hello there, <span id="login"></span>. (<a href=".">Logout</a>)
+    </p>
+    <p id="loading">
+      Loading...
+    </p>
+    <script>
+      const WORKER_URL = "https://my-worker.my-username.workers.dev";
+      const code = new URL(location.href).searchParams.get("code");
+      const $login = document.querySelector("#login");
+
+      if (code) {
+        login(code);
+      }
+
+      async function login(code) {
+        // remove ?code=... from URL
+        const path =
+          location.pathname +
+          location.search.replace(/\bcode=\w+/, "").replace(/\?$/, "");
+        history.pushState({}, "", path);
+
+        document.body.dataset.state = "loading";
+
+        const response = await fetch(WORKER_URL, {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "content-type": "application/json"
+          },
+          body: JSON.stringify({ code })
+        });
+
+        const result = await response.json();
+
+        if (result.error) {
+          return alert(JSON.stringify(result, null, 2));
+        }
+
+        // token can now be used to send authenticated requests against https://api.github.com
+        const getUserResponse = fetch("https://api.github.com/user", {
+          headers: {
+            accept: "application/vnd.github.v3+json",
+            authorization: `token ${result.token}`
+          }
+        });
+        const { login } = getUserResponse.json();
+        $login.textContent = login;
+        document.body.dataset.state = "signed-in";
+      }
+    </script>
+  </body>
+</html>
