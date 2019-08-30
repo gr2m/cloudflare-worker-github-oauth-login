@@ -1,0 +1,29 @@
+{
+  "name": "cloudflare-worker-github-oauth-login",
+  "version": "1.0.0",
+  "description": "A Cloudflare Worker + GitHub Pages Login Example",
+  "main": "github-oauth-login.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "https://github.com/gr2m/cloudflare-worker-github-oauth-login",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gr2m/cloudflare-worker-github-oauth-login/issues"
+  },
+  "homepage": "https://github.com/gr2m/cloudflare-worker-github-oauth-login#readme",
+  "devDependencies": {
+    "semantic-release": "^15.13.24"
+  },
+  "release": {
+    "prepare": [],
+    "verifyConditions": [
+      "@semantic-release/github"
+    ],
+    "publish": [
+      "@semantic-release/github"
+    ]
+  }
+}
