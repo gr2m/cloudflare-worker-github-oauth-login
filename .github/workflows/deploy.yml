@@ -1,23 +1,23 @@
+name: Deploy
+
 on:
   push:
     branches:
-      - master
-name: Deploy Cloudflare Worker
+      - wrangler-deploy-action
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    name: Deploy
     steps:
-      - uses: actions/checkout@master
-      - name: replace env variables
-        run: node .github/actions/replace-env-variables
+      - uses: actions/checkout@v2
+      - name: Publish
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          secrets: |
+            CLIENT_ID
+            CLIENT_SECRET
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-      - name: deploy
-        uses: cloudflare/serverless-action@master
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_AUTH_EMAIL: ${{ secrets.CLOUDFLARE_AUTH_EMAIL }}
-          CLOUDFLARE_AUTH_KEY: ${{ secrets.CLOUDFLARE_AUTH_KEY }}
-          CLOUDFLARE_SCRIPT_NAME: github-oauth-login
-          CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
