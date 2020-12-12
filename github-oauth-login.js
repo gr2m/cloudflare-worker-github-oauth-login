@@ -1,11 +1,10 @@
-addEventListener("fetch", event => {
+addEventListener("fetch", (event) => {
   event.respondWith(handle(event.request));
 });
 
-// Note: Cloudflare workers do not support access to environment variables.
-// The process.env.* variables are being replaced before deployment using github actions
-const client_id = process.env.CLIENT_ID;
-const client_secret = process.env.CLIENT_SECRET;
+// use secrets
+const client_id = CLIENT_ID;
+const client_secret = CLIENT_SECRET;
 
 async function handle(request) {
   // handle CORS pre-flight request
@@ -14,8 +13,8 @@ async function handle(request) {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type"
-      }
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
     });
   }
 
@@ -37,14 +36,14 @@ async function handle(request) {
         headers: {
           "content-type": "application/json",
           "user-agent": "cloudflare-worker-github-oauth-login-demo",
-          accept: "application/json"
+          accept: "application/json",
         },
-        body: JSON.stringify({ client_id, client_secret, code })
+        body: JSON.stringify({ client_id, client_secret, code }),
       }
     );
     const result = await response.json();
     const headers = {
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin": "*",
     };
 
     if (result.error) {
@@ -53,12 +52,12 @@ async function handle(request) {
 
     return new Response(JSON.stringify({ token: result.access_token }), {
       status: 201,
-      headers
+      headers,
     });
   } catch (error) {
     console.error(error);
     return new Response(error.message, {
-      status: 500
+      status: 500,
     });
   }
 }
