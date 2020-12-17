@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - wrangler-deploy-action
+      - main
 
 jobs:
   deploy:
