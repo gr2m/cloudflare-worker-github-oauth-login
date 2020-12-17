@@ -4,12 +4,7 @@
   "private": true,
   "description": "A Cloudflare Worker + GitHub Pages Login Example",
   "main": "github-oauth-login.js",
-  "dependencies": {},
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": "https://github.com/gr2m/cloudflare-worker-github-oauth-login",
   "author": "Gregor Martynus (https://twitter.com/gr2m)",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": "https://github.com/gr2m/cloudflare-worker-github-oauth-login"
 }
