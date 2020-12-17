@@ -19,10 +19,25 @@ Note that you require access to the new GitHub Actions for the automated deploym
 1. [Create a GitHub App](https://developer.github.com/apps/building-github-apps/creating-a-github-app/) or [GitHub OAuth App](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
 1. Fork this repository
 1. [Create a Cloudflare account](https://dash.cloudflare.com/) (it's free!) if you don't have one yet.
-1. Add the following secrets in your fork's repository settings:
-   - `CLIENT_ID`, `CLIENT_SECRET`: In your GitHub (OAuth) App's settings page, find `Client ID` and `Client SECRET`
-   - `CF_API_TOKEN`: [Create a new token](https://dash.cloudflare.com/profile/api-tokens), use the "Edit Cloudflare Workers" template
+1. Install the `wrangler` CLI and login with your account
+
+   ```
+   npm install --global @cloudflare/wrangler
+   wrangler login
+   ```
+
 1. Edit the `wrangler.toml` file, change the value for `account_id` to your own ([select your account](https://dash.cloudflare.com/), then find your Account ID at the bottom of the side bar)
+1. Add the following secrets to your Cloudflare worker:
+
+   - `CLIENT_ID`, `CLIENT_SECRET`: In your GitHub (OAuth) App's settings page, find `Client ID` and `Client SECRET`
+
+     ```
+     wrangler secret put CLIENT_ID
+     wrangler secret put CLIENT_SECRET
+     ```
+
+1. Add the following secret in your fork's repository settings:
+   - `CF_API_TOKEN`: [Create a new token](https://dash.cloudflare.com/profile/api-tokens), use the "Edit Cloudflare Workers" template
 1. Enable GitHub Pages in your repository settings, select `Source` to be the `master branch`.
 1. In [index.html](index.html), replace the `gr2m` workers subdomain with your own, in `WORKER_URL` and the login `<a href="...">` tag.
 
