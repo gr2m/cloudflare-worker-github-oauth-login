@@ -21,13 +21,16 @@ Note that you require access to the new GitHub Actions for the automated deploym
 1. [Create a Cloudflare account](https://dash.cloudflare.com/) (it's free!) if you don't have one yet.
 1. Add the following secrets in your fork's repository settings:
    - `CLIENT_ID`, `CLIENT_SECRET`: In your GitHub (OAuth) App's settings page, find `Client ID` and `Client SECRET`
-   - ``: Find your account's email on your profile page
    - `CF_API_TOKEN`: [Create a new token](https://dash.cloudflare.com/profile/api-tokens), use the "Edit Cloudflare Workers" template
 1. Edit the `wrangler.toml` file, change the value for `account_id` to your own ([select your account](https://dash.cloudflare.com/), then find your Account ID at the bottom of the side bar)
 1. Enable GitHub Pages in your repository settings, select `Source` to be the `master branch`.
 1. In [index.html](index.html), replace the `gr2m` workers subdomain with your own, in `WORKER_URL` and the login `<a href="...">` tag.
 
-That should be it. The `github-oauth-login.js` file is now continously deployed to Cloudflare each time there is a commit to master.
+That should be it. The `github-oauth-login.js` file will now be continously deployed to Cloudflare each time there is a commit to master.
+
+## See also
+
+- [Cloudflare Worker GitHub App Example](https://github.com/gr2m/cloudflare-worker-github-app-example/#readme)
 
 ## Credits
 
