@@ -35,7 +35,7 @@
       <small>A Cloudflare Worker + GitHub Pages Login Example</small>
     </h1>
     <p id="signed-out">
-      <a href="https://github-oauth-login.gr2m.workers.dev"
+      <a href="https://github-oauth-login.roundtrip.workers.dev"
         >Login with GitHub</a
       >
     </p>
@@ -47,7 +47,7 @@
     </p>
 
     <script>
-      const WORKER_URL = "https://github-oauth-login.gr2m.workers.dev";
+      const WORKER_URL = "https://github-oauth-login.roundtrip.workers.dev";
       const code = new URL(location.href).searchParams.get("code");
       const $login = document.querySelector("#login");
 
