@@ -54,3 +54,4 @@ The OAuth App Avatar and this repository's social preview are using [@cameronmce
 ## License
 
 [ISC](LICENSE)
+
