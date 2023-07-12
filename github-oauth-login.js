@@ -5,7 +5,7 @@ addEventListener("fetch", (event) => {
 // use secrets
 const client_id = CLIENT_ID;
 const client_secret = CLIENT_SECRET;
-github-oauth-login.js
+
 async function handle(request) {
   // handle CORS pre-flight request
   if (request.method === "OPTIONS") {
