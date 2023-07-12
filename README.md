@@ -22,7 +22,7 @@ Note that you require access to the new GitHub Actions for the automated deploym
 1. Install the `wrangler` CLI and login with your account
 
    ```
-   npm install --global @cloudflare/wrangler
+   npm install --global wrangler
    wrangler login
    ```
 
