@@ -1,2 +1,2 @@
 name = "github-oauth-login"
-main = "src/index.js"
+main = "github-oauth-login.js"
