@@ -1,3 +1,2 @@
 name = "github-oauth-login"
-account_id = "892a9675a0eebdb220adba8f45926403"
-workers_dev = true
+main = "src/index.js"
